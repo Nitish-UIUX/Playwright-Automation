@@ -1,0 +1,2 @@
+Login page opened successfully
+Username field is visible

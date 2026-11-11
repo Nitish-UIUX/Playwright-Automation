@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright UI Layout Demo</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e293b;
+        }
+
+        .description {
+            text-align: center;
+            color: #64748b;
+        }
+
+        /* Position testing */
+        .position-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .position-button {
+            width: 180px;
+            height: 45px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Alignment testing */
+        .alignment-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 300px;
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 40px;
+            padding: 8px;
+            border: 1px solid #94a3b8;
+            border-radius: 5px;
+        }
+
+        /* Overlap testing */
+        .overlap-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .overlap-container {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            background: #e2e8f0;
+        }
+
+        .box-one {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            height: 80px;
+            background: #2563eb;
+        }
+
+        .box-two {
+            position: absolute;
+            top: 50px;
+            left: 90px;
+            width: 120px;
+            height: 80px;
+            background: #f97316;
+        }
+
+        /* Visual testing */
+        .visual-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .visual-card {
+            padding: 20px;
+            width: 300px;
+            background: #dbeafe;
+            border: 2px solid #2563eb;
+            border-radius: 10px;
+        }
+
+        .visual-card h3 {
+            color: #1e40af;
+        }
+
+        .visual-card button {
+            background: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Responsive testing */
+        .responsive-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .responsive-item {
+            padding: 30px;
+            background: #dcfce7;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .responsive-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group {
+                width: 100%;
+            }
+
+            .visual-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Playwright UI Layout Testing</h1>
+
+    <p class="description">
+        Demo page for position, alignment, overlap, visual and responsive testing.
+    </p>
+
+    <!-- Position testing -->
+    <section class="position-section">
+        <h2>1. Position Testing</h2>
+        <button class="position-button" data-testid="position-button">
+            Position Button
+        </button>
+    </section>
+
+    <!-- Alignment testing -->
+    <section class="alignment-section">
+        <h2>2. Alignment Testing</h2>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input data-testid="username" placeholder="Enter username">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input data-testid="password" placeholder="Enter password">
+        </div>
+    </section>
+
+    <!-- Overlap testing -->
+    <section class="overlap-section">
+        <h2>3. Overlap Testing</h2>
+
+        <div class="overlap-container">
+            <div class="box-one" data-testid="box-one"></div>
+            <div class="box-two" data-testid="box-two"></div>
+        </div>
+    </section>
+
+    <!-- Visual testing -->
+    <section class="visual-section">
+        <h2>4. Visual Testing</h2>
+
+        <div class="visual-card" data-testid="visual-card">
+            <h3>Playwright Automation</h3>
+            <p>Visual comparison demo card.</p>
+            <button>Learn More</button>
+        </div>
+    </section>
+
+    <!-- Responsive testing -->
+    <section class="responsive-section">
+        <h2>5. Responsive Testing</h2>
+
+        <div class="responsive-grid" data-testid="responsive-grid">
+
+            <div class="responsive-item">Item 1</div>
+            <div class="responsive-item">Item 2</div>
+            <div class="responsive-item">Item 3</div>
+
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

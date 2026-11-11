@@ -1,0 +1,18 @@
+
+[
+  {
+    "name": "Product Defects",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*Expected.*"
+  },
+  {
+    "name": "Automation Issues",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*"
+  },
+  {
+    "name": "Network Issues",
+    "matchedStatuses": ["failed", "broken"],
+    "messageRegex": ".*(ECONNRESET|ETIMEDOUT|NetworkError).*"
+  }
+]
