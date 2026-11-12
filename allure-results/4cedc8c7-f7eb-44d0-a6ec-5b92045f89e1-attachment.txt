@@ -1,0 +1,1 @@
+Dialog message: I am a JS Alert

@@ -44,22 +44,26 @@
 
 // --------------------------Understand the post request ---------------------
 
-const response = await request.post(
-  'https://jsonplaceholder.typicode.com/posts',
-  {
-    data: {
-      title: 'Playwright Automation',
-      body: 'Creating test data through API',
-      userId: 1,
-    },
-  }
-);
+const { test, expect } = require('@playwright/test');
 
-expect(response.status()).toBe(201);
+test('Create test data through the API', async ({ request }) => {
+  const response = await request.post(
+    'https://jsonplaceholder.typicode.com/posts',
+    {
+      data: {
+        title: 'Playwright Automation',
+        body: 'Creating test data through API',
+        userId: 1,
+      },
+    }
+  );
 
-const createdPost = await response.json();
+  expect(response.status()).toBe(201);
 
-console.log(createdPost.id);
+  const createdPost = await response.json();
+
+  console.log(createdPost.id);
+});
 
 // Here:
 // - request.post() sends the POST request.

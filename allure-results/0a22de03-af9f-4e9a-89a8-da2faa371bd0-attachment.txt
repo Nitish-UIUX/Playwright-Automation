@@ -1,0 +1,2 @@
+Before Each: Login started
+After Each: Test completed

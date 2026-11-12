@@ -1,0 +1,6 @@
+Created Post: {
+  title: 'Learning Playwright API Testing',
+  body: 'This is my first POST API test.',
+  userId: 1,
+  id: 101
+}

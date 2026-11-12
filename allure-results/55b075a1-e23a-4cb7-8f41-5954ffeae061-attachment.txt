@@ -1,0 +1,2 @@
+Unauthenticated Status: 401
+Unauthenticated access correctly rejected

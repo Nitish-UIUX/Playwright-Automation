@@ -41,10 +41,13 @@ test('Login test', async ({ page }) => {
 
 // ----------- Creating Page Classes and Reusable Locators -----------
 
-// Reusable Locators in the page class
-this.usernameInput = page.locator('#user-name');
-this.passwordInput = page.locator('#password');
-this.loginButton = page.locator('#login-button');
+// Reusable locators belong in a page class constructor.
+// See pages/LoginPage.js:
+// constructor(page) {
+//     this.usernameInput = page.locator('#user-name');
+//     this.passwordInput = page.locator('#password');
+//     this.loginButton = page.locator('#login-button');
+// }
 
 // These locators can be used in the page methods to perform actions like login.
 

@@ -73,8 +73,6 @@ test.describe('Day 6 - Authentication Workflow', () => {
 // how do you automate a login process using Playwright?
 // ans :- we are using the playwright locators actions such a fill() and click() to automate the login process.
 
-import { test, expect } from '@playwright/test';
-
 test('Login with valid credentials', async ({ page }) => {
     await page.goto(BASE_URL);
 
@@ -83,14 +81,14 @@ test('Login with valid credentials', async ({ page }) => {
     await page.locator('[data-test="login-button"]').click();
 
     await expect(page).toHaveURL(/inventory.html/);
+    await expect(page.getByText('Products', { exact: true })).toBeVisible();
 });
 
 
 // How do you vrify that login was successful?
 // ans :- We can verify successful login by checking the URL and the visibility of elements that are only present after login, such as the 'Products' heading on the inventory page.
 
-await expect(page).toHaveURL(/inventory.html/);
-await expect(page.getByText('Products', { exact: true })).toBeVisible();
+// The valid-credentials test above checks both the URL and Products heading.
 
 // How do you test login with invalid credentials?
 // ans :- Enter incorrect credentials and verify that the login fails by checking for an error message or that the URL remains the same.
@@ -116,12 +114,14 @@ test.beforeEach(async ({ page }) => {
 
 // What is a locked-out user is an account that is prevented from logging in. 
 // ans :- A locked-ourtt user is an accoutn hat is prevented from loggin in.
-await page.locator('[data-test="username"]').fill('locked_out_user');
-await page.locator('[data-test="password"]').fill('secret_sauce');
-await page.locator('[data-test="login-button"]').click();
+test('Login with a locked-out user', async ({ page }) => {
+    await page.locator('[data-test="username"]').fill('locked_out_user');
+    await page.locator('[data-test="password"]').fill('secret_sauce');
+    await page.locator('[data-test="login-button"]').click();
 
-await expect(page.locator('[data-test="error"]'))
-    .toContainText('locked out');
+    await expect(page.locator('[data-test="error"]'))
+        .toContainText('locked out');
+});
 
 
 
@@ -168,15 +168,16 @@ export async function login(page, username, password) {
 // What is storageState in Playwright, and how does it help with authentication?
 // ans: - StorageState saves browser authentication-related state, such as cookies and local storage. This allows tests to reuse the authenticated state without logging in repeatedly, improving test efficiency and consistency.\
 
-// Save authenticated state
-await page.context().storageState({
-    path: 'playwright/.auth/user.json'
-});
+// Save authenticated state after logging in, inside a test or setup callback.
+// See tests/auth.setup.js for the executable example:
+// await page.context().storageState({
+//     path: 'playwright/.auth/user.json'
+// });
 
 // Reuse it in a test.
-test.use({
-    storageState: 'playwright/.auth/user.json'
-});
+// test.use({
+//     storageState: 'playwright/.auth/user.json'
+// });
 
 
 
@@ -213,16 +214,8 @@ test.use({
 // ans: - A reusable login helper function allows you to encapsulate the login steps in a single function, which can then be called in multiple tests. This reduces code duplication and makes tests easier to maintain.
 
 // Inside tests/helpers/login.helper.js, add:
-export async function login(page, username, password) {
-
-    await page.goto('https://www.saucedemo.com/');
-
-    await page.locator('[data-test="username"]').fill(username);
-
-    await page.locator('[data-test="password"]').fill(password);
-
-    await page.locator('[data-test="login-button"]').click();
-}
+// The login() helper above demonstrates the same steps.
+// The reusable implementation is in tests/helpers/login.helper.js.
 
 
 // Authentication Using Playwright Fixtures and Storage State 

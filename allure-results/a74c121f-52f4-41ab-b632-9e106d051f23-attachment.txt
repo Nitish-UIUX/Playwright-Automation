@@ -1,0 +1,2 @@
+Authenticated application is ready
+Authenticated application test completed

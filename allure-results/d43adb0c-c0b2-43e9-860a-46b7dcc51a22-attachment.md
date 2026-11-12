@@ -1,0 +1,230 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: day3.spec.js >> verify page loading state
+- Location: tests\day3.spec.js:105:1
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: page.goto: Test timeout of 30000ms exceeded.
+Call log:
+  - navigating to "https://playwright.dev/", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  8   | 
+  9   | const { test, expect } = require('@playwright/test');
+  10  | 
+  11  | 
+  12  | test('verify dynamically loaded text', async ({ page }) => {
+  13  | 
+  14  |     // Step 1: Open the dynamic loading page
+  15  |     await page.goto('https://the-internet.herokuapp.com/dynamic_loading/1');
+  16  | 
+  17  |     // Step 2: Locate and click the Start button
+  18  |     await page.getByRole('button', { name: 'Start' }).click();
+  19  | 
+  20  |     // Step 3: Locate the dynamically loaded element
+  21  |     const resultText = page.locator('#finish');
+  22  | 
+  23  |     // Step 4: Wait until the element becomes visible
+  24  |     // await expect(resultText).toBeVisible();
+  25  |     await expect(resultText).toBeVisible({
+  26  |         timeout: 10000
+  27  |     });
+  28  |     // Step 5: Verify the expected text
+  29  |     await expect(resultText).toHaveText('Hello World!');
+  30  | 
+  31  | });
+  32  | 
+  33  | // handling dynamic elements
+  34  | 
+  35  | test('verify dynamic loading completion', async ({ page }) => {
+  36  | 
+  37  |     // Step 1: Open dynamic loading example 2
+  38  |     await page.goto(
+  39  |         'https://the-internet.herokuapp.com/dynamic_loading/2'
+  40  |     );
+  41  | 
+  42  |     // Step 2: Click Start
+  43  |     await page.getByRole('button', { name: 'Start' }).click();
+  44  | 
+  45  |     // Step 3: Verify loading indicator disappears
+  46  |     const loading = page.locator('#loading');
+  47  | 
+  48  |     // element should be hidden before proceeding
+  49  |     await expect(loading).toBeHidden({
+  50  |         timeout: 10000
+  51  |     });
+  52  | 
+  53  |     // Step 4: Verify final content appears
+  54  |     const result = page.locator('#finish');
+  55  | 
+  56  |     // Element should be visible before checking text
+  57  |     await expect(result).toBeVisible({
+  58  |         timeout: 10000
+  59  |     });
+  60  | 
+  61  |     await expect(result).toHaveText('Hello World!');
+  62  | 
+  63  | });
+  64  | 
+  65  | 
+  66  | // Playwright Wait Strategies
+  67  | // we will learn three important waiting methods that help make automation tests reliable.
+  68  | // waitForURL: Waits for the page to navigate to a specific URL.
+  69  | // waitForState: Waits for the page to reach a specific state, such as 'load', 'domcontentloaded', or 'networkidle'.
+  70  | // locator.waitFor: Waits for a specific condition on a locator, such as visibility or attachment to the DOM.
+  71  | 
+  72  | 
+  73  | 
+  74  | test('verify login navigation using waitForURL', async ({ page }) => {
+  75  | 
+  76  |     // Step 1: Open SauceDemo
+  77  |     await page.goto('https://www.saucedemo.com/');
+  78  | 
+  79  |     // Step 2: Enter username
+  80  |     await page.getByPlaceholder('Username')
+  81  |         .fill('standard_user');
+  82  | 
+  83  |     // Step 3: Enter password
+  84  |     await page.getByPlaceholder('Password')
+  85  |         .fill('secret_sauce');
+  86  | 
+  87  |     // Step 4: Click Login
+  88  |     await page.getByRole('button', {
+  89  |         name: 'Login'
+  90  |     }).click();
+  91  | 
+  92  |     // Step 5: Wait for inventory page URL
+  93  |     await page.waitForURL('**/inventory.html');
+  94  | 
+  95  |     // Step 6: Verify inventory heading
+  96  |     await expect(
+  97  |         page.getByText('Products', { exact: true })
+  98  |     ).toBeVisible();
+  99  | 
+  100 | });
+  101 | 
+  102 | 
+  103 | // Test waitForLoadState()
+  104 | 
+  105 | test('verify page loading state', async ({ page }) => {
+  106 | 
+  107 |     // Step 1: Open website
+> 108 |     await page.goto('https://playwright.dev/');
+      |                ^ Error: page.goto: Test timeout of 30000ms exceeded.
+  109 | 
+  110 |     // Step 2: Wait until HTML document is parsed
+  111 |     await page.waitForLoadState('domcontentloaded');
+  112 | 
+  113 |     // Step 3: Verify page heading
+  114 |     await expect(
+  115 |         page.getByRole('heading', { level: 1 })
+  116 |     ).toBeVisible();
+  117 | 
+  118 | });
+  119 | 
+  120 | 
+  121 | // Test locator.waitFor()
+  122 | 
+  123 | test('verify element using locator waitFor', async ({ page }) => {
+  124 | 
+  125 |     // Step 1: Open dynamic loading page
+  126 |     await page.goto(
+  127 |         'https://the-internet.herokuapp.com/dynamic_loading/1'
+  128 |     );
+  129 | 
+  130 |     // Step 2: Locate Start button
+  131 |     await page.getByRole('button', { name: 'Start' }).click();
+  132 | 
+  133 |     // Step 3: Locate result element
+  134 |     const result = page.locator('#finish');
+  135 | 
+  136 |     // Step 4: Wait until element becomes visible
+  137 |     await result.waitFor({
+  138 |         state: 'visible',
+  139 |         timeout: 10000
+  140 |     });
+  141 | 
+  142 |     // Step 5: Verify text
+  143 |     await expect(result).toHaveText('Hello World!');
+  144 | 
+  145 | });
+  146 | 
+  147 | 
+  148 | // Navigation Handling and Multiple Pages.
+  149 | // Navigate to a website -- page.goto()
+  150 | // Click a navigation link -- 	getByRole().click()
+  151 | // Verify URL changes -- 	waitForURL()
+  152 | // Handle a new browser tab -- context.waitForEvent('page')
+  153 | // Handle popup windows -- page.waitForEvent('popup')
+  154 | // Verify page title -- toHaveTitle()
+  155 | 
+  156 | // practice Task 1 - Navigate between pages 
+  157 | 
+  158 | 
+  159 | test('verify navigation using link', async ({ page }) => {
+  160 | 
+  161 |     // Open homepage
+  162 |     await page.goto('https://the-internet.herokuapp.com/');
+  163 | 
+  164 |     // Click Form Authentication
+  165 |     await page.getByRole('link', {
+  166 |         name: 'Form Authentication'
+  167 |     }).click();
+  168 | 
+  169 |     // Verify navigation
+  170 |     await page.waitForURL('**/login');
+  171 | 
+  172 |     // Verify login page heading
+  173 |     await expect(
+  174 |         page.getByRole('heading', { name: 'Login Page' })
+  175 |     ).toBeVisible();
+  176 | 
+  177 | });
+  178 | 
+  179 | 
+  180 | // practice Task 2 - Handle new browser tab
+  181 | 
+  182 | test('verify newly opened browser tab', async ({ page }) => {
+  183 | 
+  184 |     // Open Multiple Windows page
+  185 |     await page.goto('https://the-internet.herokuapp.com/windows');
+  186 | 
+  187 |     // Start waiting for a new page before clicking
+  188 |     const newPagePromise = page.context().waitForEvent('page');
+  189 | 
+  190 |     await page.getByRole('link', {
+  191 |         name: 'Click Here'
+  192 |     }).click();
+  193 | 
+  194 |     // Capture the newly opened tab
+  195 |     const newPage = await newPagePromise;
+  196 | 
+  197 |     // Wait for its HTML document
+  198 |     await newPage.waitForLoadState('domcontentloaded');
+  199 | 
+  200 |     // Verify heading in the new tab
+  201 |     await expect(
+  202 |         newPage.getByRole('heading', { name: 'New Window' })
+  203 |     ).toBeVisible();
+  204 | 
+  205 | });
+  206 | 
+  207 | 
+  208 | 
+```

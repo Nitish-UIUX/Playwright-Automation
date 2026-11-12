@@ -1,0 +1,2 @@
+Current browser: chromium
+chromium: Login page validation passed

@@ -1,0 +1,4 @@
+Current URL: https://www.saucedemo.com/
+Username field is visible
+Password field is visible
+Login successful

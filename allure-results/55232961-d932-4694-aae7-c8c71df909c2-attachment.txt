@@ -1,0 +1,2 @@
+Browser: firefox
+Context available: true

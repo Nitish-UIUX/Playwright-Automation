@@ -1,0 +1,2 @@
+Desktop positions: [ 146, 453.65625, 761.328125 ]
+Mobile positions: [ 43, 43, 43 ]

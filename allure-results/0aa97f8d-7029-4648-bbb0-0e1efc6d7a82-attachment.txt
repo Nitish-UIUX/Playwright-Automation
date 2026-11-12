@@ -1,0 +1,7 @@
+Created Record 1: Automation Post 1
+Record ID: 101
+Created Record 2: Automation Post 2
+Record ID: 101
+Created Record 3: Automation Post 3
+Record ID: 101
+Total records created: 3

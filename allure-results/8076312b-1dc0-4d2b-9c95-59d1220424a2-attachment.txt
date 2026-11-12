@@ -1,0 +1,2 @@
+Browser opened
+Login successful

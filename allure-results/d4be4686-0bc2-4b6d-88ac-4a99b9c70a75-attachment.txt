@@ -1,0 +1,5 @@
+API Product: Essence Mascara Lash Princess
+API Price: 9.99
+API inventory products: 30
+UI cart validation successful
+API cart validation successful

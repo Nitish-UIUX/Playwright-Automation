@@ -1,0 +1,6 @@
+PUT Response: {
+  id: 1,
+  title: 'Updated Playwright Title',
+  body: 'Updated complete post content',
+  userId: 1
+}

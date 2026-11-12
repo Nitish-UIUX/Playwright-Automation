@@ -1,0 +1,5 @@
+Login URL: https://dummyjson.com/auth/login
+Login Status: 200
+Login successful
+Profile Status: 200
+Protected profile accessed successfully

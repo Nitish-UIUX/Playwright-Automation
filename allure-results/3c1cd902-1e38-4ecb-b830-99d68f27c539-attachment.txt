@@ -1,0 +1,5 @@
+Test title: Understand retry execution
+Retry number: 0
+First execution
+Expected status: passed
+Actual status: passed

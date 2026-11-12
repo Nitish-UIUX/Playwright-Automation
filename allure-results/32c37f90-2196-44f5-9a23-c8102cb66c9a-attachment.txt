@@ -1,0 +1,2 @@
+Custom fixture: Application opened
+Custom fixture: Test completed

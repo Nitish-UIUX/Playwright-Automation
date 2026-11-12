@@ -37,9 +37,9 @@
 
 // Playwright: 
 
-await page.locator('xpath=//button[text()="Login"]').click();
-or
-await page.locator('//button[text()="Login"]').click();
+// await page.locator('xpath=//button[text()="Login"]').click();
+// or
+// await page.locator('//button[text()="Login"]').click();
 
 
 
@@ -54,18 +54,18 @@ await page.locator('//button[text()="Login"]').click();
 
 // Locator chaining  :- Locator chaining allows us to locate elements relative to a parent element.
 
-<div class="product-card">
-    <h2>Sauce Labs Backpack</h2>
-    <button>Add to cart</button>
-</div>
+// <div class="product-card">
+//     <h2>Sauce Labs Backpack</h2>
+//     <button>Add to cart</button>
+// </div>
 
 // we can first locate the parent element and then chain the locator to find the child element
 
-const product = page.locator('.product-card');
+// const product = page.locator('.product-card');
 
-await product.getByRole('button', {
-    name: 'Add to cart'
-}).click();
+// await product.getByRole('button', {
+//     name: 'Add to cart'
+// }).click();
 
 
 
@@ -78,31 +78,31 @@ await product.getByRole('button', {
 
 
 // 1. Native select dropdown
-<select id="country">
-    <option value="us">United States</option>
-    <option value="ca">Canada</option>
-</select>
+// <select id="country">
+//     <option value="us">United States</option>
+//     <option value="ca">Canada</option>
+// </select>
 
 // Playwright:
-await page.locator('#country').selectOption('us');
+// await page.locator('#country').selectOption('us');
 
 // selected by label 
-await page.locator('#country').selectOption({
-    label: 'India'
-});
+// await page.locator('#country').selectOption({
+//     label: 'India'
+// });
 
 // selected by index
-await page.locator('#country').selectOption({
-    index: 1
-});
+// await page.locator('#country').selectOption({
+//     index: 1
+// });
 
 
 
 // Checkboxes
 
-<input type="checkbox" id="terms">
-    <label for="terms">Accept Terms and Conditions</label>
-</input>
+// <input type="checkbox" id="terms">
+//     <label for="terms">Accept Terms and Conditions</label>
+// </input>
 
 // methods : 
 
@@ -113,39 +113,39 @@ await page.locator('#country').selectOption({
 // not.toBeChecked()  ---> Assert that checkbox is not checked 
 
 // Using check() 
-await page.locator('#terms').check();
-await expect(page.locator('#terms')).toBeChecked();
+// await page.locator('#terms').check();
+// await expect(page.locator('#terms')).toBeChecked();
 
 // Using uncheck()
-await page.locator('#terms').uncheck();
-await expect(page.locator('#terms')).not.toBeChecked();
+// await page.locator('#terms').uncheck();
+// await expect(page.locator('#terms')).not.toBeChecked();
 
 // Using isChecked()
-const isChecked = await page.locator('#terms').isChecked();
-console.log('Checkbox checked:', isChecked);
+// const isChecked = await page.locator('#terms').isChecked();
+// console.log('Checkbox checked:', isChecked);
 
 // Using toBeChecked()
-await expect(page.locator('#terms')).toBeChecked();
+// await expect(page.locator('#terms')).toBeChecked();
 
 // Using not.toBeChecked()
-await expect(page.locator('#terms')).not.toBeChecked();
+// await expect(page.locator('#terms')).not.toBeChecked();
 
 
 
 // Handling multiple checkboxes
 
-{/* <input type="checkbox" id="html">
+/* <input type="checkbox" id="html">
 <input type="checkbox" id="css">
-<input type="checkbox" id="javascript"> */}
+<input type="checkbox" id="javascript"> */
 
 // Check multiple checkboxes
-await page.locator('#html').check();
-await page.locator('#css').check();
-await page.locator('#javascript').check();
+// await page.locator('#html').check();
+// await page.locator('#css').check();
+// await page.locator('#javascript').check();
 
 // using shared selector
-const checkboxes = page.locator('input[type="checkbox"]');
-console.log(await checkboxes.count());
+// const checkboxes = page.locator('input[type="checkbox"]');
+// console.log(await checkboxes.count());
 
 
 // Radio button Automation
@@ -156,7 +156,7 @@ console.log(await checkboxes.count());
 
 // Radio buttons allow users to select only one option from a group.
 
-{/* <label>
+/* <label>
     <input type="radio" name="gender" value="male">
     Male
 </label>
@@ -169,17 +169,17 @@ console.log(await checkboxes.count());
 <label>
     <input type="radio" name="gender" value="other">
     Other
-</label> */}
+</label> */
 
 // Selecting a radio button 
 
-await page.locator('input[value="male"]').check();
-await expect(page.locator('input[value="male"]')).toBeChecked();
+// await page.locator('input[value="male"]').check();
+// await expect(page.locator('input[value="male"]')).toBeChecked();
 
 // or use a user-facing locator 
 
-await page.getByLabel('Male').check();
-await expect(page.getByLabel('Male')).toBeChecked();
+// await page.getByLabel('Male').check();
+// await expect(page.getByLabel('Male')).toBeChecked();
 
 
 

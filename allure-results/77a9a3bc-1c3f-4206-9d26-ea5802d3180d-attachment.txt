@@ -1,0 +1,4 @@
+Before All: Test suite started
+Before Each: Opening application
+After Each: Test completed
+After All: Test suite completed

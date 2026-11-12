@@ -1,0 +1,9 @@
+PATCH Response: {
+  userId: 1,
+  id: 1,
+  title: 'Only Title Updated',
+  body: 'quia et suscipit\n' +
+    'suscipit recusandae consequuntur expedita et cum\n' +
+    'reprehenderit molestiae ut ut quas totam\n' +
+    'nostrum rerum est autem sunt rem eveniet architecto'
+}

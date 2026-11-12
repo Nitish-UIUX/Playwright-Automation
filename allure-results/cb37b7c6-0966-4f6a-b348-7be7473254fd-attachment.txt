@@ -1,0 +1,2 @@
+Running browser: chromium
+chromium login test passed

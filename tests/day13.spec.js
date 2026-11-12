@@ -126,9 +126,59 @@ await page.locator('#login-button').click();
 // 1. Screenshots in Playwright
 // Playwright supports screenshots of the entire page or individual elements.
 
-// Full-page screenshot:
+// ---------------------Full-page screenshot:------------------------
 
 // await page.screenshot({
 //   path: 'screenshots/homepage.png',
 //   fullPage: true,
 // });
+
+// ---------------------Visible viewport screenshot:---------------------
+
+await page.screenshot({
+  path: 'screenshots/current-page.png',
+});
+
+//-----------------------Element Screenshot --------------------------
+
+await page.locator('.inventory_list').screenshot({
+  path: 'screenshots/inventory.png',
+});
+
+
+// Debugging Mini Project
+// Final hour – Week 3
+// Now we'll build a practical debugging project that combines everything learned today.
+
+// Project: SauceDemo UI Automation – Debugging and Failure Analysis.
+// 1. What will we implement?
+// Our mini project will contain four test scenarios:
+// Test	Scenario	Expected result
+// 1	Successful login	Pass
+// 2	Invalid login	Pass
+// 3	Add product to cart	Pass
+// 4	Intentionally incorrect locator	Fail initially; fix afterward
+
+
+// Configure Playwright
+// Open playwright.config.js.
+
+// Inside your existing use configuration, ensure these settings are present:
+
+
+
+// use: {
+//   baseURL: 'https://www.saucedemo.com',
+//   headless: true,
+
+//   screenshot: 'only-on-failure',
+//   video: 'retain-on-failure',
+//   trace: 'retain-on-failure',
+// },
+
+
+
+// Create the mini-project test file
+// Create:
+
+// tests/day13-debugging-mini-project.spec.js

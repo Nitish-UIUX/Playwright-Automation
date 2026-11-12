@@ -1,0 +1,3 @@
+Invalid Login URL: https://dummyjson.com/auth/login
+Invalid Login Status: 400
+Invalid login correctly rejected

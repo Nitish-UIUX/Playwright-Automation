@@ -1,0 +1,39 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: day6-login-helper.spec.js >> Day 6 - Reusable Login Helper >> Login with invalid credentials
+- Location: tests\day6-login-helper.spec.js:17:9
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: page.goto: Test timeout of 30000ms exceeded.
+Call log:
+  - navigating to "https://www.saucedemo.com/", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1  | export async function login(page, username, password) {
+  2  | 
+> 3  |     await page.goto('https://www.saucedemo.com/');
+     |                ^ Error: page.goto: Test timeout of 30000ms exceeded.
+  4  | 
+  5  |     await page.locator('[data-test="username"]').fill(username);
+  6  | 
+  7  |     await page.locator('[data-test="password"]').fill(password);
+  8  | 
+  9  |     await page.locator('[data-test="login-button"]').click();
+  10 | }
+```

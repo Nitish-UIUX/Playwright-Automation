@@ -1,0 +1,100 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: day4-isolation.spec.js >> Playwright Test Isolation >> Test 2 - Verify fresh browser session
+- Location: tests\day4-isolation.spec.js:45:9
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: page.goto: Test timeout of 30000ms exceeded.
+Call log:
+  - navigating to "https://www.saucedemo.com/", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1  | // Best practice for test isolation
+  2  | 
+  3  | // Use a separate page/context per test	-----> Avoid browser-state interference
+  4  | // Perform setup independently	-----> Tests don't depend on execution order
+  5  | // Avoid shared mutable variables	-----> Prevent unexpected test results
+  6  | // Use unique test data 	-----> Avoid database conflicts
+  7  | // Clean up test data	-----> Prevent old data from affecting new tests
+  8  | // Use reusable helpers	-----> Reduce duplicate setup code
+  9  | 
+  10 | // what is shared state?
+  11 | // Shared state occurs when multiple tests rely on the same data or environment.
+  12 | // It can lead to flaky tests and unexpected failures.
+  13 | // Test isolation helps to avoid shared state by providing independent contexts and pages for each test.
+  14 | 
+  15 | // example :- 
+  16 |     // lobal variables
+  17 |     // Shared database records
+  18 |     // Common test accounts
+  19 |     // Files
+  20 |     // External API data
+  21 |     // Shared browser sessions
+  22 | 
+  23 |     import { test, expect } from '@playwright/test';
+  24 | 
+  25 | test.describe('Playwright Test Isolation', () => {
+  26 | 
+  27 |     test('Test 1 - Login to SauceDemo', async ({ page }) => {
+  28 | 
+  29 |         await page.goto('https://www.saucedemo.com/');
+  30 | 
+  31 |         await page.getByPlaceholder('Username')
+  32 |             .fill('standard_user');
+  33 | 
+  34 |         await page.getByPlaceholder('Password')
+  35 |             .fill('secret_sauce');
+  36 | 
+  37 |         await page.getByRole('button', { name: 'Login' }).click();
+  38 | 
+  39 |         await expect(page).toHaveURL(/inventory.html/);
+  40 | 
+  41 |         console.log('Test 1: Login successful');
+  42 | 
+  43 |     });
+  44 | 
+  45 |     test('Test 2 - Verify fresh browser session', async ({ page }) => {
+  46 | 
+> 47 |         await page.goto('https://www.saucedemo.com/');
+     |                    ^ Error: page.goto: Test timeout of 30000ms exceeded.
+  48 | 
+  49 |         await expect(
+  50 |             page.getByPlaceholder('Username')
+  51 |         ).toBeVisible();
+  52 | 
+  53 |         console.log('Test 2: Fresh login page opened');
+  54 | 
+  55 |     });
+  56 | 
+  57 |     test('Test 3 - Verify independent page state', async ({ page }) => {
+  58 | 
+  59 |         await page.goto('https://www.saucedemo.com/');
+  60 | 
+  61 |         await expect(page).toHaveTitle('Swag Labs');
+  62 | 
+  63 |         await expect(
+  64 |             page.getByPlaceholder('Username')
+  65 |         ).toHaveValue('');
+  66 | 
+  67 |         console.log('Test 3: Independent page state verified');
+  68 | 
+  69 |     });
+  70 | 
+  71 | });
+```
